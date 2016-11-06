@@ -1,5 +1,5 @@
 CC = gcc
-OBJECTS = libbmp.c mosaic.c
+OBJECTS = lib/libbmp.c mosaic.c
 LIBS =
 CFLAGS = -Wall -O2
 BINDIR = $(DESTDIR)/usr/bin
