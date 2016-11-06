@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include "lib/libbmp.h"
 
+#define FLTR_MKBORDER(a) ((a) >= 5 ? (a) - 5 : (a))
+
 static bmp_pixel filter_color_get (const bmp_img *img, const int px, const int py, const int width, const int height)
 {
 	int x, y, red, green, blue;
@@ -48,7 +50,7 @@ static void filter_color_set (const bmp_img *img, const int px, const int py, co
 				    y == py ||
 				    y == py + height - 1)
 				{
-					bmp_pixel_init (&img->img_pixels[y][x], pxl->red - 5, pxl->green - 5, pxl->blue - 5);
+					bmp_pixel_init (&img->img_pixels[y][x], FLTR_MKBORDER (pxl->red), FLTR_MKBORDER (pxl->green), FLTR_MKBORDER (pxl->blue));
 				}
 				else
 				{
