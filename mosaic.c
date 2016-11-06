@@ -16,7 +16,7 @@ static bmp_pixel filter_color_get (const bmp_img *img, const int px, const int p
 		for (x = px; x < px + width; x++)
 		{
 			if (x < img->img_header.biWidth &&
-			    y < img->img_header.biHeight)
+			    y < abs (img->img_header.biHeight))
 			{
 				red += img->img_pixels[y][x].red;
 				green += img->img_pixels[y][x].green;
@@ -41,7 +41,7 @@ static void filter_color_set (const bmp_img *img, const int px, const int py, co
 		for (x = px; x < px + width; x++)
 		{
 			if (x < img->img_header.biWidth &&
-			    y < img->img_header.biHeight)
+			    y < abs (img->img_header.biHeight))
 			{
 				if (x == px ||
 				    x == px + width - 1 ||
@@ -70,7 +70,7 @@ static void filter_apply (const char *filename, const int tile_width, const int 
 		return;
 	}
 	
-	for (y = 0; y < img.img_header.biHeight; y += tile_height)
+	for (y = 0; y < abs (img.img_header.biHeight); y += tile_height)
 	{   
 		for (x = 0; x < img.img_header.biWidth; x += tile_width)
 		{
