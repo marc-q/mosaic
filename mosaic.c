@@ -2,7 +2,7 @@
 /* A little mosaic filter! */
 #include <stdio.h>
 #include <stdlib.h>
-#include "libbmp.h"
+#include "lib/libbmp.h"
 
 static bmp_pixel filter_color_get (const bmp_img *img, const int px, const int py, const int width, const int height)
 {
