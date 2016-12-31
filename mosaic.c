@@ -1,4 +1,4 @@
-/* Copyright 2016 Marc Volker Dickmann */
+/* Copyright 2016 - 2017 Marc Volker Dickmann */
 /* A little mosaic filter! */
 #include <stdio.h>
 #include <stdlib.h>
@@ -87,7 +87,7 @@ static void filter_apply (const char *filename, const int tile_width, const int 
 
 int main (int argc, char *argv[])
 {
-	printf ("Mosaic v. 0.0.1 A (c) 2016 Marc Volker Dickmann\n");
+	printf ("Mosaic v. 0.0.1 A (c) 2016 - 2017 Marc Volker Dickmann\n");
 	
 	if (argc == 4)
 	{
