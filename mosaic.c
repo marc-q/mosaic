@@ -10,12 +10,11 @@
 static bmp_pixel
 filter_color_get (const bmp_img *img, const int px, const int py, const int width, const int height)
 {
-	int x, y, red, green, blue;
-	bmp_pixel r;
+	int red = 0;
+	int green = 0;
+	int blue = 0;
 	
-	red = green = blue = 0;
-	
-	for (y = py; y < py + height; y++)
+	for (int y = py, x; y < py + height; y++)
 	{
 		for (x = px; x < px + width; x++)
 		{
@@ -30,18 +29,17 @@ filter_color_get (const bmp_img *img, const int px, const int py, const int widt
 	}
 	
 	// Calculate this only once.
-	x = width * height;
+	const int s = width * height;
 	
-	bmp_pixel_init (&r, (red / x) % 256, (green / x) % 256, (blue / x) % 256);
+	bmp_pixel r;
+	bmp_pixel_init (&r, (red / s) % 256, (green / s) % 256, (blue / s) % 256);
 	return r;
 }
 
 static void
 filter_color_set (const bmp_img *img, const int px, const int py, const int width, const int height, const bmp_pixel *pxl)
 {
-	int x, y;
-	
-	for (y = py; y < py + height; y++)
+	for (int y = py, x; y < py + height; y++)
 	{
 		for (x = px; x < px + width; x++)
 		{
@@ -67,16 +65,15 @@ filter_color_set (const bmp_img *img, const int px, const int py, const int widt
 static void
 filter_apply (const char *filename, const int tile_width, const int tile_height)
 {
-	int x, y;
 	bmp_img img;
-	bmp_pixel pxl;
 	
 	if (bmp_img_read (&img, filename) != BMP_OK)
 	{
 		return;
 	}
 	
-	for (y = 0; y < abs (img.img_header.biHeight); y += tile_height)
+	bmp_pixel pxl;
+	for (int y = 0, x; y < abs (img.img_header.biHeight); y += tile_height)
 	{   
 		for (x = 0; x < img.img_header.biWidth; x += tile_width)
 		{
