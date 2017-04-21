@@ -1,12 +1,14 @@
-/* Copyright 2016 - 2017 Marc Volker Dickmann */
-/* A little mosaic filter! */
+/* Copyright 2016 - 2017 Marc Volker Dickmann
+ * A little mosaic filter!
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include "lib/libbmp.h"
 
 #define FLTR_MKBORDER(a) ((a) >= 5 ? (a) - 5 : (a))
 
-static bmp_pixel filter_color_get (const bmp_img *img, const int px, const int py, const int width, const int height)
+static bmp_pixel
+filter_color_get (const bmp_img *img, const int px, const int py, const int width, const int height)
 {
 	int x, y, red, green, blue;
 	bmp_pixel r;
@@ -34,7 +36,8 @@ static bmp_pixel filter_color_get (const bmp_img *img, const int px, const int p
 	return r;
 }
 
-static void filter_color_set (const bmp_img *img, const int px, const int py, const int width, const int height, const bmp_pixel *pxl)
+static void
+filter_color_set (const bmp_img *img, const int px, const int py, const int width, const int height, const bmp_pixel *pxl)
 {
 	int x, y;
 	
@@ -61,7 +64,8 @@ static void filter_color_set (const bmp_img *img, const int px, const int py, co
 	}
 }
 
-static void filter_apply (const char *filename, const int tile_width, const int tile_height)
+static void
+filter_apply (const char *filename, const int tile_width, const int tile_height)
 {
 	int x, y;
 	bmp_img img;
@@ -85,7 +89,8 @@ static void filter_apply (const char *filename, const int tile_width, const int 
 	bmp_img_free (&img);
 }
 
-int main (int argc, char *argv[])
+int
+main (int argc, char *argv[])
 {
 	printf ("Mosaic v. 0.0.1 A (c) 2016 - 2017 Marc Volker Dickmann\n");
 	
