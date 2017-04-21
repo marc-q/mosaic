@@ -29,7 +29,7 @@ filter_color_get (const bmp_img *img, const int px, const int py, const int widt
 		}
 	}
 	
-	/* Calculate this only once. */
+	// Calculate this only once.
 	x = width * height;
 	
 	bmp_pixel_init (&r, (red / x) % 256, (green / x) % 256, (blue / x) % 256);
