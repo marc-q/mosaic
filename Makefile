@@ -1,15 +1,12 @@
 CC = gcc
 OBJECTS = lib/libbmp.c mosaic.c
 LIBS =
-CFLAGS = -Wall -O2
+CFLAGS = -Wall -Wextra -O2
 BINDIR = $(DESTDIR)/usr/bin
 NAME = mosaic
 
 mosaic: $(OBJECTS)
-	$(CC) -o $(NAME) $(OBJECTS) $(LIBS)
-
-%.o: %.c
-	$(CC) -c $(CFLAGS) $<
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS) $(LIBS)
 
 clean:
 	rm $(NAME)
