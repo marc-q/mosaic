@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "lib/libbmp.h"
 
-#define FLTR_MKBORDER(a) ((a) >= 5 ? (a) - 5 : (a))
+#define FLTR_MKBORDER(a,b) ((a) >= (b) ? (a) - (b) : (a))
 
 static bmp_pixel
 filter_color_get (const bmp_img *img, const int px, const int py, const int width, const int height)
@@ -46,12 +46,24 @@ filter_color_set (const bmp_img *img, const int px, const int py, const int widt
 			if (x < img->img_header.biWidth &&
 			    y < abs (img->img_header.biHeight))
 			{
-				if (x == px ||
+				if ((x == px &&
+				     y == py) ||
+				    (x == px + width - 1 &&
+				     y == py) ||
+				    (x == px + width - 1 &&
+				     y == py + height - 1) ||
+				    (x == px &&
+				     y == py + height - 1))
+				{
+					/* Make the corners darker to get round edges: */
+					bmp_pixel_init (&img->img_pixels[y][x], FLTR_MKBORDER (pxl->red, 20), FLTR_MKBORDER (pxl->green, 20), FLTR_MKBORDER (pxl->blue, 20));
+				}
+				else if (x == px ||
 				    x == px + width - 1 ||
 				    y == py ||
 				    y == py + height - 1)
 				{
-					bmp_pixel_init (&img->img_pixels[y][x], FLTR_MKBORDER (pxl->red), FLTR_MKBORDER (pxl->green), FLTR_MKBORDER (pxl->blue));
+					bmp_pixel_init (&img->img_pixels[y][x], FLTR_MKBORDER (pxl->red, 5), FLTR_MKBORDER (pxl->green, 5), FLTR_MKBORDER (pxl->blue, 5));
 				}
 				else
 				{
